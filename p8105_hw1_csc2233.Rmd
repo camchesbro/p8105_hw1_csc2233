@@ -28,6 +28,8 @@ mean(pull(penguins, var = flipper_length_mm), na.rm = TRUE)
 
 
 ```{r}
+ggplot(data = penguins) +
+  geom_point(mapping = aes(x = bill_length_mm, y = flipper_length_mm, colour = species))
 
-
+ggsave("penguins_scatterplot.pdf")
 ```
