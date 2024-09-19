@@ -19,16 +19,16 @@ library(ggplot2)
 data("penguins", package = "palmerpenguins")
 
 # Collect descriptive information
-colnames(penguins)
-ncol(penguins)
-nrow(penguins)
-mean(pull(penguins, var = flipper_length_mm), na.rm = TRUE)
+column_names = colnames(penguins)
+columns = ncol(penguins)
+rows = nrow(penguins)
+avg_flipper_length_mm = mean(pull(penguins, var = flipper_length_mm), na.rm = TRUE)
 
 ```
 
 # Description of penguins)
 
-
+This data set describes a collection of penguins. Its variables include the species, habitat, body measurements, sex, and year of collection. The data set consists of `columns` columns and `rows` rows. The mean flipper length of the penguins is `avg_flipper_length` millimeters.
 
 ```{r}
 # Create scatterplot with ggplot
@@ -64,6 +64,13 @@ mean(pull(patchwork_dataframe, var = logic_vec))
 mean(pull(patchwork_dataframe, var = char_vec))
 mean(pull(patchwork_dataframe, var = factor_vec))
 
+```
+
+# Discussion on Mean)
+
+Attempting to take the mean of the vector types gave some different results for the different kinds of vectors. For the numeric and logical vectors a number was produced. For the character and factor vectors NA was produced alongside a warning. This warning notes that the argument is not numeric or logical and as a result is returning NA.
+ 
+```{r}
 # Create function that converts a vector into a numeric vector when given a dataframe and one of its columns
 char_func = function(df, x) {
   xpull = pull(df, x)
@@ -79,3 +86,7 @@ char_func(patchwork_dataframe, "logic_vec")
 char_func(patchwork_dataframe, "factor_vec")
 
 ```
+
+# Discussion on as.numeric)
+
+Using the function to convert the vector types into numeric produced a warning for the character vector alongside NAs, converted the logical vector into 1s and 0s, and converted the factor vector into 3s, 2s, and 1s based on their given level. This helps explain what happened when taking the mean as you cannot calculate it with words or strings, but you can with 1s and 0s.
