@@ -2,7 +2,9 @@
 title: "p8105_hw1_csc2233"
 author: "Cameron Chesbrough"
 date: "2024-09-17"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -12,7 +14,7 @@ library(tidyverse)
 library(ggplot2)
 ```
 
-## Problem 1)
+# Problem 1)
 
 ```{r}
 # Import data
@@ -26,9 +28,9 @@ avg_flipper_length_mm = mean(pull(penguins, var = flipper_length_mm), na.rm = TR
 
 ```
 
-# Description of penguins)
+## Description of penguins)
 
-This data set describes a collection of penguins. Its variables include the species, habitat, body measurements, sex, and year of collection. The data set consists of `columns` columns and `rows` rows. The mean flipper length of the penguins is `avg_flipper_length` millimeters.
+This data set describes a collection of penguins. Its variables include the species, habitat, body measurements, sex, and year of collection. The data set consists of `r {columns}` columns and `r {rows}` rows. The mean flipper length of the penguins is `r {avg_flipper_length_mm}` millimeters.
 
 ```{r}
 # Create scatterplot with ggplot
@@ -39,7 +41,7 @@ ggplot(data = penguins) +
 ggsave("penguins_scatterplot.pdf")
 ```
 
-## Problem 2)
+# Problem 2)
 
 ```{r}
 # Create necessary vectors
@@ -66,7 +68,7 @@ mean(pull(patchwork_dataframe, var = factor_vec))
 
 ```
 
-# Discussion on Mean)
+## Discussion on Mean)
 
 Attempting to take the mean of the vector types gave some different results for the different kinds of vectors. For the numeric and logical vectors a number was produced. For the character and factor vectors NA was produced alongside a warning. This warning notes that the argument is not numeric or logical and as a result is returning NA.
  
@@ -87,6 +89,6 @@ char_func(patchwork_dataframe, "factor_vec")
 
 ```
 
-# Discussion on as.numeric)
+## Discussion on as.numeric)
 
 Using the function to convert the vector types into numeric produced a warning for the character vector alongside NAs, converted the logical vector into 1s and 0s, and converted the factor vector into 3s, 2s, and 1s based on their given level. This helps explain what happened when taking the mean as you cannot calculate it with words or strings, but you can with 1s and 0s.
