@@ -7,16 +7,19 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(tidyverse) # Load necessary packages
+# Load necessary packages
+library(tidyverse)
 library(ggplot2)
 ```
 
 ## Problem 1)
 
 ```{r}
-data("penguins", package = "palmerpenguins") # Import data
+# Import data
+data("penguins", package = "palmerpenguins")
 
-colnames(penguins) # Collect descriptive information
+# Collect descriptive information
+colnames(penguins)
 ncol(penguins)
 nrow(penguins)
 mean(pull(penguins, var = flipper_length_mm), na.rm = TRUE)
@@ -28,8 +31,51 @@ mean(pull(penguins, var = flipper_length_mm), na.rm = TRUE)
 
 
 ```{r}
+# Create scatterplot with ggplot
 ggplot(data = penguins) +
   geom_point(mapping = aes(x = bill_length_mm, y = flipper_length_mm, colour = species))
 
+# Save plot
 ggsave("penguins_scatterplot.pdf")
+```
+
+## Problem 2)
+
+```{r}
+# Create necessary vectors
+random_sample_vec = rnorm(10)
+logic_vec = c(random_sample_vec > 0)
+char_vec = c("What", "I", "learned", "in", "boating", "school", "is",
+             "blankety", "blankety", "blank!")
+diffs = c("Easy","Hard","Hard","Easy","Easy","Hard","Medium","Hard","Medium","Easy")
+factor_vec = factor(diffs, levels = c("Easy", "Medium", "Hard"))
+
+# Create dataframe from vectors
+patchwork_dataframe = data.frame(
+  random_sample_vec,
+  logic_vec,
+  char_vec,
+  factor_vec
+)
+
+# Attempt to pull mean for each vector
+mean(pull(patchwork_dataframe, var = random_sample_vec))
+mean(pull(patchwork_dataframe, var = logic_vec))
+mean(pull(patchwork_dataframe, var = char_vec))
+mean(pull(patchwork_dataframe, var = factor_vec))
+
+# Create function that converts a vector into a numeric vector when given a dataframe and one of its columns
+char_func = function(df, x) {
+  xpull = pull(df, x)
+  as.numeric(xpull)
+}
+
+```
+
+```{r, results='hide'}
+# Use created function and hide the outputs
+char_func(patchwork_dataframe, "char_vec")
+char_func(patchwork_dataframe, "logic_vec")
+char_func(patchwork_dataframe, "factor_vec")
+
 ```
